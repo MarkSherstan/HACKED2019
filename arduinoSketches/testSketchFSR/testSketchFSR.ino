@@ -24,7 +24,7 @@ void loop(){
   fsrV = fsrADC * VCC / 1023.0;
 
   // Use voltage and static resistor value to calculate FSR resistance:
-  fsrR = R_DIV * (VCC / fsrV - 1.0);
+  fsrR = ((VCC - fsrV) * R_DIV) / fsrV;
 
   // Guesstimate force based on slopes in figure 3 of FSR datasheet (conductance):
   fsrG = 1.0 / fsrR;
@@ -35,7 +35,7 @@ void loop(){
   else
     force =  fsrG / 0.000000642857;
 
-  // Display data and small pause
-  Serial.println("Force: " + String(force) + " g");
+  // Display data [in grams] and add small pause
+  Serial.println(force);
   delay(1);
 }
