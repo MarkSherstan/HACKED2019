@@ -1,27 +1,33 @@
-const int FSR_PIN = A0; // Pin connected to FSR/resistor divider
-const float VCC = 4.98; // Measured voltage of Ardunio 5V line
-const float R_DIV = 3230.0; // Measured resistance of 3.3k resistor
+// Declare some variables
+const int FSR_PIN = A0;
+const float VCC = 4.98;
+const float R_DIV = 5100.0;
+int fsrADC;
 float force;
+float fsrV;
+float fsrR;
+float fsrG;
+
 
 void setup(){
+  // Set up serial and pin mode
   Serial.begin(9600);
   pinMode(FSR_PIN, INPUT);
 }
 
+
 void loop(){
-  int fsrADC = analogRead(FSR_PIN);
+  // Read pin
+  fsrADC = analogRead(FSR_PIN);
 
   // Use ADC reading to calculate voltage:
-  float fsrV = fsrADC * VCC / 1023.0;
+  fsrV = fsrADC * VCC / 1023.0;
 
-  // Use voltage and static resistor value to
-  // calculate FSR resistance:
-  float fsrR = R_DIV * (VCC / fsrV - 1.0);
-  Serial.println("Resistance: " + String(fsrR) + " ohms");
+  // Use voltage and static resistor value to calculate FSR resistance:
+  fsrR = R_DIV * (VCC / fsrV - 1.0);
 
-  // Guesstimate force based on slopes in figure 3 of
-  // FSR datasheet:
-  float fsrG = 1.0 / fsrR; // Calculate conductance
+  // Guesstimate force based on slopes in figure 3 of FSR datasheet (conductance):
+  fsrG = 1.0 / fsrR;
 
   // Break parabolic curve down into two linear slopes:
   if (fsrR <= 600)
@@ -29,8 +35,7 @@ void loop(){
   else
     force =  fsrG / 0.000000642857;
 
-
+  // Display data and small pause
   Serial.println("Force: " + String(force) + " g");
-
   delay(1);
 }
