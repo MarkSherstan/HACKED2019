@@ -5,7 +5,7 @@ try
     set(s,'BaudRate',115200);
     fopen(s);
     fprintf(s,'*IDN?');
-    load SVM6_Eric.mat;
+    model = load("SVM6_Eric.mat"
     pause(3);
     tic
     while toc < 100
@@ -15,7 +15,7 @@ try
         split = strsplit(out, ',');
         split = strrep(split, 'NaN', '0');
         force = str2double(split(1:end-1));
-        y = SVM6_Eric.predictFcn(force);
+        y = model(0).predictFcn(force);
 %         y = round(y);
         fprintf(s, "s%i\n", y);
         pause(0.01);

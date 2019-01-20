@@ -1,3 +1,13 @@
+#include <Servo.h>
+
+Servo Shoulder;
+Servo Elbow;
+Servo Hand;
+
+int Shoulderpos = 1200;
+int Elbowpos = 1200;
+int Handpos = 3000;
+
 // Declare some variables
 const int FSR_PIN[] = {0, 1, 2, 3, 4, 5, 6, 7};
 
@@ -14,6 +24,8 @@ String label = "foo\n";
 String incomingString;
 int dataCount = 0;
 
+int y;
+
 void setup(){
   // Set up serial and pin mode
   Serial.begin(115200);
@@ -21,6 +33,15 @@ void setup(){
   for (int i=0;i<8;i++){
   pinMode(FSR_PIN[i], INPUT);
   }
+Shoulder.attach(5);
+Elbow.attach(4);
+Hand.attach(11);
+
+Shoulder.writeMicroseconds(Shoulderpos);
+Elbow.writeMicroseconds(Elbowpos);
+Hand.writeMicroseconds(Handpos);
+
+
 }
 
 
@@ -29,16 +50,56 @@ void loop(){
 if (Serial.available() > 0) {
                 // read the incoming byte:
   incomingString = Serial.readString();
-    if (incomingString.toInt() >20){
+    if (incomingString.toInt() > 20){
       dataCount = incomingString.toInt();      
     }
     else if (incomingString == "a\n") {
       dataCount = 1;
     }
+    else if (incomingString.startsWith("s") == true){
+      incomingString.remove(0,1);
+      y = incomingString.toInt();
+    }
     else {
        label = incomingString;
     }
   }
+
+  if (y == 4){
+    Shoulderpos += 1;
+  }
+  else if (y == 5){
+    Shoulderpos -= 1;
+  }
+  else if(y == 3){
+    Handpos += 1;
+  }
+  else if(y == 0){
+    Handpos -= 1;
+    Elbowpos = 1200;
+    Shoulderpos = 1200;
+  }
+  else if(y == 1){
+    Elbowpos += 1;
+  }
+  else if (y == 2){
+    Elbowpos -= 1;
+  }
+
+//  Serial.print(Shoulderpos);
+//  Serial.print('\t');
+//  Serial.print(Elbowpos);
+//  Serial.print('\t');
+//  Serial.print(Handpos);
+//  Serial.print('\n');
+  
+    Shoulderpos = constrain(Shoulderpos, 500, 2000);
+    Elbowpos = constrain(Elbowpos, 500, 2000);
+    Handpos = constrain(Handpos, 1000, 3000);
+
+  Shoulder.writeMicroseconds(Shoulderpos);
+  Elbow.writeMicroseconds(Elbowpos);
+  Hand.writeMicroseconds(Handpos);
 
 while (dataCount > 0){
   for (int i=0; i<8;i++){
