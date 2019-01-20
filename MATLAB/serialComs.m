@@ -6,21 +6,31 @@ try
     set(s,'BaudRate',115200);
     fopen(s);
     fprintf(s,'*IDN?');
-    load SVM6_Eric.mat;
+    load SVMG6_Mark.mat;
     pause(3);
     tic
-    while toc < 15
-        toc
+    
+    window = 10;
+    y = zeros(1, window);
+    while toc < 60
+
         fprintf(s, "a");
         out = fscanf(s, '%40s\n');
         split = strsplit(out, ',');
         split = strrep(split, 'NaN', '0');
         force = str2double(split(1:end-1));
-        y = SVM6_Eric.predictFcn(force);
-%         y = round(y);
-        fprintf(s, "s%i\n", y);
+        
+        for i=1:window-1
+           y(i) = y(i+1); 
+        end
+        y(window) = SVM6Finger_Mark.predictFcn(force);
+%         y = mode(y);
+        
+        fprintf(s, "s%i\n", mode(y));
         pause(0.01);
-        fprintf("%d\n",y);
+%         fprintf("%d\n",y);
+disp(y);
+disp(mode(y));
     end
 
     fclose(s);
