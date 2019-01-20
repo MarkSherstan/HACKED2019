@@ -13,3 +13,6 @@ Create a classification / regression based algorithm based off of FSR's and musc
 * 8 --> pointer finger down
 * 9 --> light fist left
 * 10 --> light fist right
+
+
+![](https://github.com/MarkSherstan/HACKED2019/blob/master/data/demoImage.png)
