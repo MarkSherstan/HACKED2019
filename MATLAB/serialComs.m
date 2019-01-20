@@ -1,6 +1,7 @@
 try
 
     fclose('all');
+    % s = serial ('/dev/cu.usbmodem14201');
     s = serial ('COM6');
     set(s,'BaudRate',115200);
     fopen(s);
@@ -8,8 +9,8 @@ try
     load SVM6_Eric.mat;
     pause(3);
     tic
-    while toc < 100
-
+    while toc < 15
+        toc
         fprintf(s, "a");
         out = fscanf(s, '%40s\n');
         split = strsplit(out, ',');
