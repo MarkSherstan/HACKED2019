@@ -4,11 +4,11 @@ data2 = csvread('../data/2042_Bourk.csv');
 RicoTrain = csvread('../data/2353_RicoTrain.csv');
 RicoTest = csvread('../data/2414_RicoTest.csv');
 
-Xtrain = normalize(RicoTrain(:, 1:end-1));
+Xtrain = RicoTrain(:, 1:end-1);
 Ytrain = RicoTrain(:,end);
 Ttrain = [Xtrain, Ytrain];
 
-Xtest = normalize(RicoTest(:, 1:end-1));
+Xtest = RicoTest(:, 1:end-1);
 Ytest = RicoTest(:,end);
 Ttest = [Xtest, Ytest];
 

@@ -16,8 +16,8 @@ int dataCount = 0;
 
 void setup(){
   // Set up serial and pin mode
-  Serial.begin(57600);
-  Serial.setTimeout(100);
+  Serial.begin(115200);
+  Serial.setTimeout(3);
   for (int i=0;i<8;i++){
   pinMode(FSR_PIN[i], INPUT);
   }
@@ -32,8 +32,11 @@ if (Serial.available() > 0) {
     if (incomingString.toInt() >20){
       dataCount = incomingString.toInt();      
     }
+    else if (incomingString == "a\n") {
+      dataCount = 1;
+    }
     else {
-      label = incomingString;
+       label = incomingString;
     }
   }
 
@@ -62,14 +65,15 @@ while (dataCount > 0){
 float aveforce = 0;
   // Display data [in grams] and add small pause
     for (int i=0; i<8; i++){
-        Serial.print(force[i]);
+        Serial.print(force[i],1);
         Serial.print(',');
         aveforce += force[i];
     }
     aveforce = aveforce/8;
-    Serial.print(aveforce);
+    Serial.print(aveforce,1);
     Serial.print(',');
     Serial.print(label);
+//    Serial.println();
 
     dataCount -= 1;
 }
