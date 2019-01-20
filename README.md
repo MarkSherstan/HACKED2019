@@ -1,5 +1,5 @@
 # HACKED2019
-Designed and programmed in collaboration with [Eric Wells](https://github.com/Rico5678)
+Designed and programmed in collaboration with [Eric Wells](https://github.com/Rico5678).
 
 ## Inspiration
 Gesture control is becoming a popular technique integrated into the growing area of virtual reality and rehabilitation. The popular Myo Armband achieved this using Electromyography (EMG) sensors placed on the forearm. However, this device was recently discontinued from production, leaving a gap in the marketplace.
