@@ -50,12 +50,16 @@ if (Serial.available() > 0) {
     
   }
 
-
+float aveforce = 0;
   // Display data [in grams] and add small pause
     for (int i=0; i<8; i++){
         Serial.print(force[i]);
         Serial.print(',');
+        aveforce += force[i];
     }
+    aveforce = aveforce/8;
+    Serial.print(aveforce);
+    Serial.print(',');
     Serial.print(label);
     delay(1);
 }
