@@ -49,6 +49,11 @@ void setup(){
   Hand.writeMicroseconds(Handpos);
 
   setup_mpu_6050_registers();
+//
+//  pinMode(14, OUTPUT);
+//  pinMode(15, OUTPUT);
+//  digitalWrite(14, LOW);
+//  digitalWrite(15, HIGH);
 }
 
 
@@ -64,9 +69,17 @@ void loop(){
   // Find pitch and roll from accelerometer
   accelPitch = atan2(accel_y, accel_z) * RAD_TO_DEG;
   accelRoll = atan2(accel_x, accel_z) * RAD_TO_DEG;
+//Serial.println(accelPitch);
 
   // Map servo value
-  Shoulderpos = map(accelPitch,0,180,500,3000);
+//  Elbowpos = map(accelPitch,0,-180,500,3000);
+
+  if (accelPitch >= -80){
+    Elbowpos = 1150;
+  }
+  else{
+    Elbowpos = 2650;
+  }
 
 if (Serial.available() > 0) {
                 // read the incoming byte:
@@ -86,26 +99,26 @@ if (Serial.available() > 0) {
     }
   }
 
-  // if (y == 4){
-  //   Shoulderpos += 1;
-  // }
-  // else if (y == 5){
-  //   Shoulderpos -= 1;
-  // }
+   if (y == 1){
+     Shoulderpos += 1;
+   }
+   else if (y == 2){
+     Shoulderpos -= 1;
+   }
   if(y == 3){
     Handpos += 1;
   }
   else if(y == 0){
     Handpos -= 1;
-    Elbowpos = 1200;
-    Shoulderpos = 1200;
+//    Elbowpos = 1200;
+//    Shoulderpos = 1200;
   }
-  else if(y == 1){
-    Elbowpos += 1;
-  }
-  else if (y == 2){
-    Elbowpos -= 1;
-  }
+//  else if(y == 1){
+//    Elbowpos += 1;
+//  }
+//  else if (y == 2){
+//    Elbowpos -= 1;
+//  }
 
 //  Serial.print(Shoulderpos);
 //  Serial.print('\t');

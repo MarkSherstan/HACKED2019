@@ -6,7 +6,7 @@ try
     set(s,'BaudRate',115200);
     fopen(s);
     fprintf(s,'*IDN?');
-    load SVMG6_Mark.mat;
+%     load SVM_Squid.mat;
     pause(3);
     tic
     
@@ -23,14 +23,12 @@ try
         for i=1:window-1
            y(i) = y(i+1); 
         end
-        y(window) = SVM6Finger_Mark.predictFcn(force);
+        y(window) = svm_Rico.predictFcn(force);
 %         y = mode(y);
         
         fprintf(s, "s%i\n", mode(y));
         pause(0.01);
-%         fprintf("%d\n",y);
-disp(y);
-disp(mode(y));
+        disp(mode(y));
     end
 
     fclose(s);
