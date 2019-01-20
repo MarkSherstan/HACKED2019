@@ -10,10 +10,11 @@ float fsrV;
 float fsrR;
 float fsrG;
 
+String label = "foo\n";
 
 void setup(){
   // Set up serial and pin mode
-  Serial.begin(9600);
+  Serial.begin(57600);
   for (int i=0;i<8;i++){
   pinMode(FSR_PIN[i], INPUT);
   }
@@ -21,6 +22,12 @@ void setup(){
 
 
 void loop(){
+
+if (Serial.available() > 0) {
+                // read the incoming byte:
+  label = Serial.readString();
+    
+  }
 
   for (int i=0; i<8;i++){
       // Read pin
@@ -37,7 +44,7 @@ void loop(){
   
     // Break parabolic curve down into two linear slopes:
     if (fsrR <= 600)
-      force[i] = (fsrG - 0.00075) / 0.00000032639;
+      force[i] = (fsrG - 0.00075) / 0.00000032639;  
     else
       force[i] =  fsrG / 0.000000642857;
     
@@ -49,6 +56,6 @@ void loop(){
         Serial.print(force[i]);
         Serial.print(',');
     }
-    Serial.println();
+    Serial.print(label);
     delay(1);
 }
