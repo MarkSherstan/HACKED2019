@@ -11,10 +11,13 @@ float fsrR;
 float fsrG;
 
 String label = "foo\n";
+String incomingString;
+int dataCount = 0;
 
 void setup(){
   // Set up serial and pin mode
   Serial.begin(57600);
+  Serial.setTimeout(100);
   for (int i=0;i<8;i++){
   pinMode(FSR_PIN[i], INPUT);
   }
@@ -25,10 +28,16 @@ void loop(){
 
 if (Serial.available() > 0) {
                 // read the incoming byte:
-  label = Serial.readString();
-    
+  incomingString = Serial.readString();
+    if (incomingString.toInt() >20){
+      dataCount = incomingString.toInt();      
+    }
+    else {
+      label = incomingString;
+    }
   }
 
+while (dataCount > 0){
   for (int i=0; i<8;i++){
       // Read pin
     fsrADC = analogRead(FSR_PIN[i]);
@@ -61,5 +70,7 @@ float aveforce = 0;
     Serial.print(aveforce);
     Serial.print(',');
     Serial.print(label);
-    delay(1);
+
+    dataCount -= 1;
+}
 }

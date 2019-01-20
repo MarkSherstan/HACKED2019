@@ -1,0 +1,45 @@
+data1 = csvread('../data/1914_Bourk.csv');
+data2 = csvread('../data/2042_Bourk.csv');
+
+RicoTrain = csvread('../data/2244_RicoTrain.csv');
+RicoTest = csvread('../data/2244_RicoTest.csv');
+
+X = Rico
+
+% extract first 4 classes froms data2
+% ind = data2(:,end) <= 3;
+% data3 = data2(ind,1:end);
+
+% % normalize data across rows
+% X1 = data1(:,1:end-1);
+% Y1 = data1(:,end);
+% X1norm = (X1 - mean(X1,2))./(max(X1,[],2)-min(X1,[],2));
+% T1norm = [X1norm, Y1];
+% 
+% X3 = data3(:,1:end-1);
+% Y3 = data3(:,end);
+% X3norm = (X3 - mean(X3,2))./(max(X3,[],2)-min(X3,[],2));
+% T3norm = [X3norm, Y3];
+% 
+% datanorm = vertcat([X1norm,Y1],[X3norm,Y3]);
+
+% yfit = LDA_T1norm.predictFcn(X3norm);
+% accuracy = sum(yfit == Y3)/length(Y3);
+% disp(accuracy);
+% 
+% yfit = LDA_T3norm.predictFcn(X1norm);
+% accuracy = sum(yfit == Y1)/length(Y1);
+% disp(accuracy);
+% 
+% yfit = SVM3_T1norm.predictFcn(X3norm);
+% accuracy = sum(yfit == Y3)/length(Y3);
+% disp(accuracy);
+% 
+% yfit = SVM_T3norm.predictFcn(X1norm);
+% accuracy = sum(yfit == Y1)/length(Y1);
+% disp(accuracy);
+
+function [Xnorm] = normalize(X)
+    Xnorm = (X - mean(X,2))./(max(X,[],2)-min(X,[],2));
+
+end
