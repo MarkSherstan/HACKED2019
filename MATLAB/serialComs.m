@@ -6,7 +6,7 @@ try
     set(s,'BaudRate',115200);
     fopen(s);
     fprintf(s,'*IDN?');
-%     load SVM_Squid.mat;
+%     load svm_Rico.mat;
     pause(3);
     tic
     
@@ -23,7 +23,7 @@ try
         for i=1:window-1
            y(i) = y(i+1); 
         end
-        y(window) = svm_Rico.predictFcn(force);
+        y(window) = grandFinal.predictFcn(force);
 %         y = mode(y);
         
         fprintf(s, "s%i\n", mode(y));
