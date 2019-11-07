@@ -1,3 +1,7 @@
+**Checkout the latest updates to the project [here!](https://github.com/EricDavidWells/Realtime-Force-Myography)**
+
+
+
 # HACKED2019
 Designed and programmed in collaboration with [Eric Wells](https://github.com/Rico5678).
 
